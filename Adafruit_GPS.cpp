@@ -263,10 +263,18 @@ boolean Adafruit_GPS::parse(char *nmea) {
   return false;
 }
 
-bool Adafruit_GPS::parseNextNMEA(void)
+bool Adafruit_GPS::parseNextNMEA(unsigned long timeout_ms)
 {
+  unsigned long time_start = millis();
   while(true)
   {
+    if(timeout_ms)
+    {
+      if(millis() - time_start > timeout_ms)
+      {
+        return false;
+      }
+    }
     read();
     if (newNMEAreceived()) {
       if(parse(lastNMEA())) {
