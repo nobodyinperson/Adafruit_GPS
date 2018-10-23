@@ -127,6 +127,7 @@ class Adafruit_GPS {
 
   char read(void);
   boolean parse(char *);
+  boolean parseNextNMEA();
 
   boolean wakeup(void);
   boolean standby(void);
