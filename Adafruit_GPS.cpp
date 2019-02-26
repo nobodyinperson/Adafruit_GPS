@@ -272,6 +272,7 @@ bool Adafruit_GPS::parseNextNMEA(unsigned long timeout_ms)
     {
       if(millis() - time_start > timeout_ms)
       {
+        fix = false;
         return false;
       }
     }
