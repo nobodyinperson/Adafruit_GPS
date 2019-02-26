@@ -301,7 +301,9 @@ char Adafruit_GPS::read(void) {
     c = gpsHwSerial->read();
   }
 
-  //Serial.print(c);
+#ifdef ADAFRUIT_GPS_ECHO
+  Serial.print(c);
+#endif // #ifdef ADAFRUIT_GPS_ECHO
 
 //  if (c == '$') {         //please don't eat the dollar sign - rdl 9/15/14
 //    currentline[lineidx] = 0;
