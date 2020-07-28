@@ -9,7 +9,7 @@ Written by Limor Fried/Ladyada for Adafruit Industries.
 BSD license, check license.txt for more information
 All text above must be included in any redistribution
 ****************************************/
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   // Only include software serial on AVR platforms (i.e. not on Due).
   #include <SoftwareSerial.h>
 #endif
@@ -290,7 +290,7 @@ char Adafruit_GPS::read(void) {
 
   if (paused) return c;
 
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   if(gpsSwSerial) {
     if(!gpsSwSerial->available()) return c;
     c = gpsSwSerial->read();
@@ -334,7 +334,7 @@ char Adafruit_GPS::read(void) {
   return c;
 }
 
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
 // Constructor when using SoftwareSerial or NewSoftSerial
 #if ARDUINO >= 100
 Adafruit_GPS::Adafruit_GPS(SoftwareSerial *ser)
@@ -355,7 +355,7 @@ Adafruit_GPS::Adafruit_GPS(HardwareSerial *ser) {
 
 // Initialization code used by all constructor types
 void Adafruit_GPS::common_init(void) {
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   gpsSwSerial = NULL; // Set both to NULL, then override correct
 #endif
   gpsHwSerial = NULL; // port pointer in corresponding constructor
@@ -376,7 +376,7 @@ void Adafruit_GPS::common_init(void) {
 
 void Adafruit_GPS::begin(uint32_t baud)
 {
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   if(gpsSwSerial)
     gpsSwSerial->begin(baud);
   else
@@ -387,7 +387,7 @@ void Adafruit_GPS::begin(uint32_t baud)
 }
 
 void Adafruit_GPS::sendCommand(const char *str) {
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   if(gpsSwSerial)
     gpsSwSerial->println(str);
   else

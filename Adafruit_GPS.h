@@ -24,7 +24,7 @@ All text above must be included in any redistribution
 //comment this out if you don't want to include software serial in the library
 // #define USE_SW_SERIAL
 
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   #if ARDUINO >= 100
     #include <SoftwareSerial.h>
   #else
@@ -105,7 +105,7 @@ class Adafruit_GPS {
  public:
   void begin(uint32_t baud);
 
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   #if ARDUINO >= 100
     Adafruit_GPS(SoftwareSerial *ser); // Constructor when using SoftwareSerial
   #else
@@ -158,7 +158,7 @@ class Adafruit_GPS {
   boolean paused;
 
   uint8_t parseResponse(char *response);
-#if defined(__AVR__) && defined(USE_SW_SERIAL)
+#if defined(__AVR__) || defined(USE_SW_SERIAL)
   #if ARDUINO >= 100
     SoftwareSerial *gpsSwSerial;
   #else
